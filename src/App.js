@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./CustomHook/auth-hook";
+import { AuthContext } from "./Context/auth-context";
 
-function App() {
+import Header from "./components/Header/Header";
+import SignIn from "./Pages/SignIn/SignIn";
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import Home from "./Pages/Home/Home";
+
+const App = () => {
+  const { token, login, logout, updateProfile, user } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        user: user,
+        login: login,
+        logout: logout,
+        updateProfile: updateProfile,
+      }}
+    >
+      <BrowserRouter>
+        <Header />
+        {loading && <LoadingSpinner />}
+        {!loading && (
+          <Routes>
+            <Route
+              path="/"
+              element={token ? <Home /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/signin"
+              element={token ? <Navigate to="/" /> : <SignIn />}
+            />
+          </Routes>
+        )}
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;
