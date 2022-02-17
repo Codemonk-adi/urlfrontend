@@ -53,7 +53,7 @@ const Content = () => {
   return (
     <div>
       {content && (
-        <div className="text-lg font-light text-blue-400 max-w-md border-2 border-gray-300 rounded-md mx-auto mt-20 p-5">
+        <div className="text-lg font-light text-blue-400 max-w-xl border-2 border-gray-300 rounded-md mx-auto mt-20 p-5">
           <h1 className="text-xl font-semibold mb-5 text-blue-700">Content:</h1>
           <p>{content}</p>
         </div>
