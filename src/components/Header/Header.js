@@ -44,12 +44,12 @@ const Header = () => {
   });
   return (
     <div className="border border-gray-200 max-w-screen h-16 px-10  bg-gray-background shadow-sm overflow-hidden flex items-center justify-between">
-      <Link
+      {/* <Link
         to="/"
         className="flex items-center space-x-2 curosr-pointer text-3xl font-semibold text-blue-dark hover:text-blue-text"
       >
         <span>Decipher</span>
-      </Link>
+      </Link> */}
       {!auth.isLoggedIn && (
         <div className="flex items-center space-x-5">
           <Link

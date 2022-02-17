@@ -7,6 +7,8 @@ import Header from "./components/Header/Header";
 import SignIn from "./Pages/SignIn/SignIn";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Home from "./Pages/Home/Home";
+import Content from "./Pages/Content/Content";
+import SignUp from "./Pages/SignUp/SignUp";
 
 const App = () => {
   const { token, login, logout, updateProfile, user } = useAuth();
@@ -39,6 +41,14 @@ const App = () => {
             <Route
               path="/signin"
               element={token ? <Navigate to="/" /> : <SignIn />}
+            />
+            <Route
+              path="/signup"
+              element={token ? <Navigate to="/" /> : <SignUp />}
+            />
+            <Route
+              path="/display/:queryId/:isEncrypted"
+              element={token ? <Content /> : <Navigate to="/signin" />}
             />
           </Routes>
         )}
