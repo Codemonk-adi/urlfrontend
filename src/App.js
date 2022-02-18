@@ -9,10 +9,13 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Home from "./Pages/Home/Home";
 import Content from "./Pages/Content/Content";
 import SignUp from "./Pages/SignUp/SignUp";
+import UserHistory from "./Pages/UserHistory/UserHistory";
+import Details from "./Pages/Details/Details";
 
 const App = () => {
   const { token, login, logout, updateProfile, user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [accessContent, setAccessContent] = useState([]);
 
   useEffect(() => {
     setLoading(false);
@@ -49,6 +52,26 @@ const App = () => {
             <Route
               path="/display/:queryId/:isEncrypted"
               element={token ? <Content /> : <Navigate to="/signin" />}
+            />
+            <Route
+              path="/details"
+              element={
+                token ? (
+                  <Details accessContent={accessContent} />
+                ) : (
+                  <Navigate to="/signin" />
+                )
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                token ? (
+                  <UserHistory setAccessContent={setAccessContent} />
+                ) : (
+                  <Navigate to="/signin" />
+                )
+              }
             />
           </Routes>
         )}
