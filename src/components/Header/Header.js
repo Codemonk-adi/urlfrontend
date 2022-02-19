@@ -67,6 +67,11 @@ const Header = () => {
         </div>
       )}
       {auth.isLoggedIn && (
+        <div className="text-blue-text hover:text-blue-500 text-xl cursor-pointer hover:underline">
+          <Link to="/history">Dashboard</Link>
+        </div>
+      )}
+      {auth.isLoggedIn && (
         <div>
           <div onClick={myAccountHandler} className="cursor-pointer">
             <Avatar user={auth.user} />
