@@ -24,7 +24,7 @@ const Content = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        `https://consise-farms.herokuapp.com/admin/host`,
+        `https://my-poly.herokuapp.com/admin/host`,
         {
           queryid: queryId,
           key: enteredKey,
@@ -55,7 +55,12 @@ const Content = () => {
       {content && (
         <div className="text-lg font-light text-blue-400 max-w-xl border-2 border-gray-300 rounded-md mx-auto mt-20 p-5">
           <h1 className="text-xl font-semibold mb-5 text-blue-700">Content:</h1>
-          <p>{content}</p>
+          <span
+            className="cursor-pointer hover:underline font-medium hover:text-blue-700"
+            onClick={() => window.open(content, "_blank")}
+          >
+            {content}
+          </span>
         </div>
       )}
       <div className="shadow-md w-96 px-5 pt-10 pb-5 mx-auto mt-20 flex flex-col space-y-10 items-center justify-center">

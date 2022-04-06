@@ -4,6 +4,7 @@ import Button from "../../components/Button/Button";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Spinner from "../../components/Spinner/Spinner";
+import YoutubeEmbed from "../../components/YoutubeEmbed/YoutubeEmbed";
 import axios from "../../helpers/axios";
 import Exclamation from "../../SVG/exclamation";
 import Tick from "../../SVG/tick";
@@ -20,6 +21,8 @@ const UserHistory = ({ setAccessContent }) => {
   const [allHistory, setAllHistory] = useState([]);
   const navigate = useNavigate();
 
+  console.log(allHistory, "allHistory");
+
   const onCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -28,7 +31,7 @@ const UserHistory = ({ setAccessContent }) => {
     try {
       setIsMainPageLoading(true);
       const response = await axios.get(
-        `https://consise-farms.herokuapp.com/admin/track`
+        `https://my-poly.herokuapp.com/admin/track`
       );
       console.log("Response", response);
       setAllHistory([...response.data]);
@@ -44,7 +47,7 @@ const UserHistory = ({ setAccessContent }) => {
     try {
       setIsLoadingRenew({ id: id });
       const response = await axios.post(
-        `https://consise-farms.herokuapp.com/admin/renew`,
+        `https://my-poly.herokuapp.com/admin/renew`,
         { queryid: id }
       );
       console.log("Response", response);
@@ -70,7 +73,7 @@ const UserHistory = ({ setAccessContent }) => {
     try {
       setIsLoadingDelete({ id: id });
       const response = await axios.post(
-        `https://consise-farms.herokuapp.com/admin/delete`,
+        `https://my-poly.herokuapp.com/admin/delete`,
         { queryid: id }
       );
       console.log("Response", response);
@@ -97,7 +100,7 @@ const UserHistory = ({ setAccessContent }) => {
     try {
       setIsLoadingAccess({ id: id });
       const response = await axios.post(
-        `https://consise-farms.herokuapp.com/admin/details`,
+        `https://my-poly.herokuapp.com/admin/details`,
         { queryid: id }
       );
       console.log("Response details", response);
@@ -126,16 +129,16 @@ const UserHistory = ({ setAccessContent }) => {
     <div className="max-w-screen min-h-screen p-10">
       {isMainPageLoading && <LoadingSpinner />}
       {!isMainPageLoading && allHistory.length === 0 && (
-        <div className="text-red-500 text-3xl">
+        <div className="text-red-500 text-3xl mb-10">
           <h1>No data found!</h1>
         </div>
       )}
       {!isMainPageLoading && allHistory.length > 0 && (
-        <div className="text-red-500 text-3xl text-center mb-5">
+        <div className="text-red-500 text-3xl text-center mb-10">
           <h1>User History Data</h1>
         </div>
       )}
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-3 gap-10">
         {allHistory.length > 0 &&
           !isMainPageLoading &&
           allHistory.map((user) => (
@@ -143,6 +146,16 @@ const UserHistory = ({ setAccessContent }) => {
               className="max-w-md shadow-md p-10 flex flex-col items-center justify-center space-y-10"
               key={user.id}
             >
+              {!user.isYoutube && (
+                <div>
+                  <p className="text-lg ">It's not a YouTube video</p>
+                </div>
+              )}
+              {user.isYoutube && (
+                <div className="w-full">
+                  <YoutubeEmbed embedId={user.embed} />
+                </div>
+              )}
               <div className="bg-blue-300 px-3 py-2 max-w-fit text-center cursor-pointer text-lg text-white hover:text-blue-600">
                 <a target="_blank" href={user.url} rel="noopener noreferrer">
                   Link: {user.url}

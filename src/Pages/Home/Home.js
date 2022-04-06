@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
-import FileUploader from "../../components/FileUploader/FileUploader";
+//import FileUploader from "../../components/FileUploader/FileUploader";
 import Spinner from "../../components/Spinner/Spinner";
 import axios from "../../helpers/axios";
 import Exclamation from "../../SVG/exclamation";
@@ -26,14 +25,14 @@ const Home = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        `https://consise-farms.herokuapp.com/admin/generateUrl`,
+        `https://my-poly.herokuapp.com/admin/generateUrl`,
         data
       );
       console.log("Response", response);
       setUrl(response?.data?.URL);
       setMessage({
         heading: "Success!",
-        text: `Congraulations! Your file/files have been successfully uploaded to your dashboard.`,
+        text: `Congratulations! Your file/files have been successfully uploaded to your dashboard.`,
       });
       setIsLoading(false);
       setEnteredText("");
@@ -70,31 +69,22 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-10 shadow-lg my-10 max-w-3xl p-10 mx-auto">
-      <div
-        style={{ minHeight: "15rem" }}
-        className="border-2 border-gray-300 w-full rounded-md p-5"
-      >
-        <textarea
-          placeholder={
-            files.length === 0
-              ? "Input or paste code snippets"
-              : "You can either enter text or upload a file"
-          }
-          style={{ resize: "none" }}
+      <div className="border-2 border-gray-300 w-full rounded-md py-3 px-5">
+        <input
+          placeholder="Enter YouTube video link"
           className="w-full focus:outline-none bg-transparent"
           value={enteredText}
           onChange={(e) => setEnteredText(e.target.value)}
           name="code-snippets"
-          disabled={files.length > 0}
         />
       </div>
-      <div>
+      {/* <div>
         <FileUploader
           files={files}
           setFiles={setFiles}
           enteredText={enteredText}
         />
-      </div>
+      </div> */}
       <div className="border-2 border-gray-300 rounded-md w-80 px-8 py-3">
         <input
           placeholder="Enter encryption key (*not required)"
