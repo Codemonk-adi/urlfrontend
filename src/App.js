@@ -11,7 +11,6 @@ import Content from "./Pages/Content/Content";
 import SignUp from "./Pages/SignUp/SignUp";
 import UserHistory from "./Pages/UserHistory/UserHistory";
 import Details from "./Pages/Details/Details";
-import YoutubeEmbed from "./components/YoutubeEmbed/YoutubeEmbed";
 
 const App = () => {
   const { token, login, logout, updateProfile, user } = useAuth();
@@ -73,10 +72,6 @@ const App = () => {
                   <Navigate to="/signin" />
                 )
               }
-            />
-            <Route
-              path="/youtube"
-              element={<YoutubeEmbed embedId="RDVz9gotCaM" />}
             />
           </Routes>
         )}
