@@ -3,7 +3,7 @@ import React from "react";
 import classes from "./fileUploader.module.css";
 import Search from "../../SVG/search";
 
-const FileUploader = ({ files, setFiles, enteredText,placeholder }) => {
+const FileUploader = ({ files, setFiles, enteredText }) => {
   // let FILE_SIZE;
 
   const handleFileChange = (e) => {
@@ -27,7 +27,7 @@ const FileUploader = ({ files, setFiles, enteredText,placeholder }) => {
 
   return (
     <div className="flex flex-col items-center space-y-2">
-      <div className="mb-1 w-100">
+      <div className="mb-1 w-40">
         <input
           disabled={enteredText !== ""}
           className={classes.custom}
@@ -36,14 +36,14 @@ const FileUploader = ({ files, setFiles, enteredText,placeholder }) => {
           name="FileData"
           id="FileData"
           onChange={handleFileChange}
-          accept=".nii,.nii.gz"
+          accept="text/plain"
         />
         <label
           htmlFor="FileData"
           className="flex items-center justify-center space-x-1 shadow-lg bg-white cursor-pointer py-3 px-3 border border-gray-300 rounded-md leading-4 font-medium text-gray-700 hover:text-green-500 hover:border-green-300 focus:outline-none focus:border-green-300 focus:shadow-outline-green active:bg-gray-50 active:text-green-800"
         >
           <Search />
-          <span>{placeholder}</span>
+          <span>Choose Files</span>
         </label>
       </div>
       {files.length > 0 && (
